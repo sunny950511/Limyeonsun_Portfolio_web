@@ -26,7 +26,7 @@ const PROFILE = {
 };
 
 const MENU = {
-  portfolio: ['SNS Content', 'WEB & UI/UX Design', 'Blog', 'AI Image'],
+  portfolio: ['SNS Content', 'WEB & UI/UX Design', 'AI Image'],
 };
 
 // ==========================================
@@ -243,36 +243,6 @@ const AI_IMAGES = [
   '/images/ai_img/home06 1.png',
 ];
 
-// ==========================================
-// 4. 네이버 블로그 대표 게시글 데이터
-//    - 대표 글 추가/수정: 아래 객체들의 title, description, url, thumbnail을 변경해 주세요!
-// ==========================================
-const BLOG_POSTS = [
-  {
-    id: 1,
-    title: '디자인 영감과 실무 작업 기록',
-    description: '작업 과정과 일상 속에서 발견한 다양한 디자인 인사이트 및 기록들을 네이버 블로그에서 만나보세요.',
-    date: '2026.10',
-    thumbnail: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&auto=format&fit=crop&q=80',
-    url: 'https://blog.naver.com/', // 실제 네이버 블로그 글 링크로 변경하세요
-  },
-  {
-    id: 2,
-    title: '국립중앙박물관 UX/UI 웹 접근성 개선 리디자인 비하인드',
-    description: '공공 웹사이트의 정보 접근성과 모바일 최적화를 고민하며 진행했던 개인 프로젝트의 설계 과정과 후기.',
-    date: '2026.09',
-    thumbnail: '/images/museum/museum_main.png',
-    url: 'https://blog.naver.com/',
-  },
-  {
-    id: 3,
-    title: '가상 펫 커머스 MOMO&CO. 브랜딩 & 프로모션 스토리',
-    description: '따뜻함과 신뢰감을 주는 라이프스타일 펫 브랜드 콘셉트 설정부터 프로모션 페이지 비주얼 구성까지.',
-    date: '2026.08',
-    thumbnail: '/images/momo&co/momo&co_main.png',
-    url: 'https://blog.naver.com/',
-  },
-];
 
 function App() {
   // 현재 선택된 프로젝트 ID (null이면 전체 목록 뷰, id가 있으면 해당 상세 뷰)
@@ -458,49 +428,6 @@ function App() {
               </div>
             </div>
           </article>
-        ) : selectedCategory === 'Blog' ? (
-          /* ====================================================
-             Blog 전용 대표 게시글 목록 뷰
-             ==================================================== */
-          <div className="blog-list-container">
-            <div className="blog-header">
-              <h2 className="blog-header-title">Naver Blog</h2>
-              <a
-                href="https://blog.naver.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="blog-visit-btn"
-              >
-                블로그 바로가기 ↗
-              </a>
-            </div>
-            <div className="blog-list">
-              {BLOG_POSTS.map((post) => (
-                <a
-                  key={post.id}
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="blog-card"
-                >
-                  <div className="blog-thumb-wrap">
-                    <img
-                      src={getAssetUrl(post.thumbnail)}
-                      alt={post.title}
-                      className="blog-thumb-img"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="blog-info">
-                    <span className="blog-date">{post.date}</span>
-                    <h3 className="blog-title">{post.title}</h3>
-                    <p className="blog-desc">{post.description}</p>
-                    <span className="blog-link-text">네이버 블로그에서 읽기 ↗</span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
         ) : selectedCategory === 'AI Image' ? (
           /* ====================================================
              AI Image 전용 자유 비율 갤러리 (Masonry 형식)
