@@ -217,6 +217,32 @@ const PROJECTS = [
   },
 ];
 
+// ==========================================
+// 3. AI Image 갤러리 이미지 목록 (원본 비율 유지)
+// ==========================================
+const AI_IMAGES = [
+  '/images/ai_img/01.png',
+  '/images/ai_img/02.png',
+  '/images/ai_img/03.png',
+  '/images/ai_img/04.png',
+  '/images/ai_img/Frame 96 1.png',
+  '/images/ai_img/Frame 97 1.png',
+  '/images/ai_img/Frame 98 1.png',
+  '/images/ai_img/Frame 99 1.png',
+  '/images/ai_img/Frame 101 1.png',
+  '/images/ai_img/Frame 102 1.png',
+  '/images/ai_img/care01 1.png',
+  '/images/ai_img/care02 1.png',
+  '/images/ai_img/care03 1.png',
+  '/images/ai_img/care06 1.png',
+  '/images/ai_img/care08 1.png',
+  '/images/ai_img/eat02 1.png',
+  '/images/ai_img/home03 1.png',
+  '/images/ai_img/home04 1.png',
+  '/images/ai_img/home05 1.png',
+  '/images/ai_img/home06 1.png',
+];
+
 function App() {
   // 현재 선택된 프로젝트 ID (null이면 전체 목록 뷰, id가 있으면 해당 상세 뷰)
   const [selectedId, setSelectedId] = useState(null);
@@ -401,6 +427,22 @@ function App() {
               </div>
             </div>
           </article>
+        ) : selectedCategory === 'AI Image' ? (
+          /* ====================================================
+             AI Image 전용 자유 비율 갤러리 (Masonry 형식)
+             ==================================================== */
+          <div className="ai-gallery-grid">
+            {AI_IMAGES.map((imgSrc, index) => (
+              <div key={index} className="ai-gallery-item">
+                <img
+                  src={getAssetUrl(imgSrc)}
+                  alt={`AI Image ${index + 1}`}
+                  className="ai-gallery-img"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
         ) : (
           /* ====================================================
              [첨부 이미지 1번 형태: 메인 갤러리 그리드 목록]

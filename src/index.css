@@ -330,3 +330,46 @@ ul {
   background-color: #111111;
   color: #ffffff;
 }
+
+/* ====================================================
+   3. AI Image 갤러리 (자유 비율 Masonry 레이아웃)
+   ==================================================== */
+.ai-gallery-grid {
+  column-count: 3;
+  column-gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .ai-gallery-grid {
+    column-count: 2;
+    column-gap: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ai-gallery-grid {
+    column-count: 1;
+  }
+}
+
+.ai-gallery-item {
+  break-inside: avoid;
+  margin-bottom: 24px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fcfcfc;
+  border: 1px solid #eeeeee;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ai-gallery-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.ai-gallery-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
