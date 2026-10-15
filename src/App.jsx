@@ -23,6 +23,7 @@ const PROFILE = {
   address: '경기도 수원시 장안구 송죽동',
   email: 'sunny950511@gmail.com',
   phone: '010-8497-4204',
+  blog: 'https://blog.naver.com/sunnny_52'
 };
 
 const MENU = {
@@ -409,11 +410,10 @@ function App() {
 
               {/* 카테고리가 SNS Content, AI Image, Amusement인 경우 썸네일 크기로 축소 */}
               <div
-                className={`detail-images-list ${
-                  ['SNS Content', 'AI Image', 'Amusement'].includes(currentProject.category)
+                className={`detail-images-list ${['SNS Content', 'AI Image', 'Amusement'].includes(currentProject.category)
                     ? 'compact'
                     : ''
-                }`}
+                  }`}
               >
                 {currentProject.detailImages &&
                   currentProject.detailImages.map((imgSrc, index) => (
