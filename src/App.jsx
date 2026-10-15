@@ -445,44 +445,65 @@ function App() {
           </div>
         ) : (
           /* ====================================================
-             [첨부 이미지 1번 형태: 메인 갤러리 그리드 목록]
+             메인 화면(ALL) 또는 기타 카테고리 필터
              ==================================================== */
-          filteredProjects.length > 0 ? (
-            <div className="project-grid">
-              {filteredProjects.map((project) => (
-                <div
-                  key={project.id}
-                  className="project-card"
-                  onClick={() => handleCardClick(project.id)}
+          <>
+            {filteredProjects.length > 0 ? (
+              <div className="project-grid">
+                {filteredProjects.map((project) => (
+                  <div
+                    key={project.id}
+                    className="project-card"
+                    onClick={() => handleCardClick(project.id)}
+                  >
+                    <div className="thumbnail-wrap">
+                      <img
+                        src={getAssetUrl(project.thumbnail)}
+                        alt={project.title}
+                        className="thumbnail-img"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="project-info">
+                      <span className="project-category">{project.category}</span>
+                      <span className="project-title">{project.title}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-category-msg">
+                <p>해당 카테고리에 등록된 프로젝트가 없습니다.</p>
+                <button
+                  type="button"
+                  className="detail-back-btn"
+                  style={{ marginTop: '16px' }}
+                  onClick={handleShowAll}
                 >
-                  <div className="thumbnail-wrap">
-                    <img
-                      src={getAssetUrl(project.thumbnail)}
-                      alt={project.title}
-                      className="thumbnail-img"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="project-info">
-                    <span className="project-category">{project.category}</span>
-                    <span className="project-title">{project.title}</span>
-                  </div>
+                  전체 포트폴리오 보기
+                </button>
+              </div>
+            )}
+
+            {/* 메인 화면('ALL') 접속 시 AI Image 갤러리도 하단에 바로 표시 */}
+            {selectedCategory === 'ALL' && (
+              <div className="main-ai-section">
+                <h3 className="main-section-title">AI Image</h3>
+                <div className="ai-gallery-grid">
+                  {AI_IMAGES.map((imgSrc, index) => (
+                    <div key={index} className="ai-gallery-item">
+                      <img
+                        src={getAssetUrl(imgSrc)}
+                        alt={`AI Image ${index + 1}`}
+                        className="ai-gallery-img"
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="empty-category-msg">
-              <p>해당 카테고리에 등록된 프로젝트가 없습니다.</p>
-              <button
-                type="button"
-                className="detail-back-btn"
-                style={{ marginTop: '16px' }}
-                onClick={handleShowAll}
-              >
-                전체 포트폴리오 보기
-              </button>
-            </div>
-          )
+              </div>
+            )}
+          </>
         )}
       </main>
     </div>

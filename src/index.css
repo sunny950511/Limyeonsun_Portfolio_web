@@ -334,6 +334,21 @@ ul {
 /* ====================================================
    3. AI Image 갤러리 (자유 비율 Masonry 레이아웃)
    ==================================================== */
+.main-ai-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid #eeeeee;
+}
+
+.main-section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #222222;
+  margin-bottom: 24px;
+  letter-spacing: -0.2px;
+}
+
 .ai-gallery-grid {
   column-count: 3;
   column-gap: 24px;
