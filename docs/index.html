@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limyeonsun Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #ffffff;
+      color: #111111;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+    button {
+      background: none;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+    .portfolio-container {
+      display: flex;
+      min-height: 100vh;
+      padding: 40px 40px 100px 50px;
+      gap: 50px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .sidebar {
+      width: 210px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 40px;
+      align-self: flex-start;
+    }
+    .profile-avatar-wrap {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 30px;
+      background-color: #f1f3f5;
+      overflow: hidden;
+    }
+    .profile-avatar {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .sidebar-section {
+      margin-bottom: 28px;
+    }
+    .sidebar-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: #222222;
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+    .sidebar-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sidebar-item {
+      font-size: 12.5px;
+      color: #333333;
+      line-height: 1.4;
+      position: relative;
+      padding-left: 11px;
+    }
+    .sidebar-item::before {
+      content: '\2022';
+      position: absolute;
+      left: 0;
+      color: #555555;
+      font-size: 10px;
+    }
+    .sidebar-item a:hover,
+    .sidebar-item button:hover {
+      text-decoration: underline;
+    }
+    .sidebar-item.active button {
+      font-weight: 700;
+      color: #000000;
+      text-decoration: underline;
+    }
+    .empty-category-msg {
+      padding: 80px 0;
+      text-align: center;
+      color: #888888;
+      font-size: 14px;
+    }
+    .content-area {
+      flex: 1;
+      min-width: 0;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      column-gap: 28px;
+      row-gap: 44px;
+    }
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
+    .thumbnail-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1.15;
+      background-color: #f5f6f8;
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 1px solid #eeeeee;
+    }
+    .thumbnail-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .project-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .project-category {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111111;
+      letter-spacing: -0.2px;
+    }
+    .project-title {
+      font-size: 11.5px;
+      color: #777777;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .detail-view {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .detail-top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 24px;
+      margin-bottom: 8px;
+    }
+    .detail-nav-left {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+    .detail-nav-category {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #000000;
+      letter-spacing: -0.2px;
+    }
+    .detail-nav-title {
+      font-size: 13.5px;
+      color: #222222;
+      font-weight: 500;
+    }
+    .detail-back-btn {
+      font-size: 12.5px;
+      color: #666666;
+      padding: 4px 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+    .detail-back-btn:hover {
+      background-color: #f8f9fa;
+      color: #111111;
+    }
+    .detail-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .detail-description {
+      font-size: 14.5px;
+      color: #333333;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      white-space: pre-line;
+    }
+    .detail-images-list {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .detail-image-item {
+      width: 100%;
+      display: block;
+    }
+    .detail-image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .detail-images-list.compact {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .detail-images-list.compact .detail-image-item {
+      width: 100%;
+      max-width: 280px;
+    }
+    .detail-images-list.compact .detail-image-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid #eeeeee;
+    }
+    .detail-demo-wrap {
+      margin-bottom: 24px;
+    }
+    .live-demo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111111;
+      background-color: #ffffff;
+      border: 1px solid #111111;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      letter-spacing: -0.2px;
+    }
+    .live-demo-btn:hover {
+      background-color: #111111;
+      color: #ffffff;
+    }
+    @media (max-width: 992px) {
+      .portfolio-container {
+        flex-direction: column;
+        padding: 24px 16px;
+        gap: 32px;
+      }
+      .sidebar {
+        width: 100%;
+        position: static;
+      }
+      .profile-avatar-wrap {
+        width: 120px;
+        height: 120px;
+      }
+      .project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        column-gap: 16px;
+        row-gap: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const PROFILE = {
+      avatar: './assets/yeonsun.png',
+      name: '임연선',
+      birth: '1995.05.11',
+      address: '경기도 수원시 장안구 송죽동',
+      email: 'sunny950511@gmail.com',
+      phone: '010-8497-4204',
+    };
+
+    const MENU = {
+      portfolio: ['SNS Content', 'WEB & UI/UX Design', 'AI Image'],
+    };
+
+    const PROJECTS = [
+      {
+        id: 1,
+        category: 'UI/UX',
+        title: '국립중앙박물관 리디자인 프로젝트',
+        thumbnail: './images/museum/museum_main.png',
+        demoUrl: 'https://sunny950511.github.io/museum/',
+        description: '국립중앙박물관 UX/UI 웹 접근성 개선 개인 프로젝트입니다. 바로가기 버튼 클릭 시 라이브 데모 사이트로 이동됩니다.',
+        detailImages: [
+          './images/museum/museum_main.png',
+        ],
+      },
+      {
+        id: 2,
+        category: 'UI/UX',
+        title: '가상 브랜드 Mellobe 랜딩 페이지',
+        thumbnail: './images/mellobe/mellobe_main.png',
+        demoUrl: 'https://sunny950511.github.io/Mellobe/',
+        description: '가상 브랜드 Mellobe 랜딩 페이지 디자인 프로젝트입니다. 바로가기 버튼 클릭 시 라이브 데모 사이트로 이동됩니다.',
+        detailImages: [
+          './images/mellobe/mellobe_main.png',
+        ],
+      },
+      {
+        id: 3,
+        category: 'UI/UX',
+        title: '사람인 홈페이지 리디자인 프로젝트',
+        thumbnail: './images/saramin/saramin_main.png',
+        description: '사람인 홈페이지 리디자인 프로젝트입니다.\n\n-AI를 활용한 배너 이미지\n-반응형 클론 사이트',
+        detailImages: [
+          './images/saramin/saramin_main.png',
+        ],
+      },
+      {
+        id: 4,
+        category: 'UI/UX',
+        title: 'AI 대시보드',
+        thumbnail: './images/dashboard/dashboard_main.png',
+        demoUrl: 'https://dashboard-iota-bay-42.vercel.app/',
+        description: 'AI 기반 데이터 시각화 대시보드 프로젝트입니다. 바로가기 버튼 클릭 시 라이브 데모 사이트로 이동됩니다.',
+        detailImages: [
+          './images/dashboard/dashboard_main.png',
+        ],
+      },
+      {
+        id: 5,
+        category: 'UI/UX',
+        title: '가상 브랜드 MOMO&CO. 홈페이지',
+        thumbnail: './images/momo&co/momo&co_main.png',
+        description: '가상 브랜드 MOMO&CO. 프로모션 페이지 디자인 프로젝트입니다.\n\n[반려동물과 함께하는 일상에 필요한 제품을 취향에 맞게 발견할 수 있는 라이프스타일 펫 커머스]\n\n- 페르소나 : 온라인 쇼핑에 익숙하고 가성비와 가심비를 모두 생각하며 디자인을 중요하게 생각하는 2030 반려동물 보호자\n- UX Goal : 사용자가 필요한 상품을 쉽게 찾을 수 있게한다.\n- 핵심 키워드 : 따뜻함(warm),깔끔함(clean),라이프스타일(lifestyle),신뢰감(trust)',
+        detailImages: [
+          './images/momo&co/momo&co_main.png',
+        ],
+      },
+      {
+        id: 6,
+        category: 'SNS Content',
+        title: '책 추천 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_book.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_book.png'
+        ],
+      },
+      {
+        id: 7,
+        category: 'SNS Content',
+        title: '식단 간식 추천 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_snack.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_snack.png'
+        ],
+      },
+      {
+        id: 8,
+        category: 'SNS Content',
+        title: '여행지 추천 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_travel.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_travel.png',
+        ],
+      },
+      {
+        id: 9,
+        category: 'SNS Content',
+        title: '맛집 추천 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_food.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_food.png',
+        ],
+      },
+      {
+        id: 10,
+        category: 'SNS Content',
+        title: '취미 추천 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_hobby.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_hobby.png',
+        ],
+      },
+      {
+        id: 11,
+        category: 'SNS Content',
+        title: '카페 광고 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_cafe.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_cafe.png',
+        ],
+      },
+      {
+        id: 12,
+        category: 'SNS Content',
+        title: '템플릿 / 인스타그램 카드뉴스',
+        thumbnail: './images/SNS/카드뉴스1/01.png',
+        description: '',
+        detailImages: [
+          './images/SNS/카드뉴스1/01.png',
+          './images/SNS/카드뉴스1/02.png',
+          './images/SNS/카드뉴스1/03.png',
+          './images/SNS/카드뉴스1/04.png',
+        ],
+      },
+      {
+        id: 13,
+        category: 'SNS Content',
+        title: '원데이클래스 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_class.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_class.png'
+        ],
+      },
+      {
+        id: 14,
+        category: 'SNS Content',
+        title: '전시회 포스터 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_poster.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_poster.png',
+        ],
+      },
+      {
+        id: 15,
+        category: 'SNS Content',
+        title: '브랜드 포스터 / 인스타그램 세로형',
+        thumbnail: './images/SNS/sns_brand.png',
+        description: '',
+        detailImages: [
+          './images/SNS/sns_brand.png',
+        ],
+      },
+      {
+        id: 16,
+        category: 'SNS Content',
+        title: '디저트 홍보 카드뉴스',
+        thumbnail: './images/SNS/디저트1/01.png',
+        description: '',
+        detailImages: [
+          './images/SNS/디저트1/01.png',
+          './images/SNS/디저트1/02.png',
+          './images/SNS/디저트1/03.png',
+          './images/SNS/디저트1/04.png',
+          './images/SNS/디저트1/05.png',
+          './images/SNS/디저트1/06.png',
+          './images/SNS/디저트1/07.png',
+        ],
+      },
+    ];
+
+    function App() {
+      const [selectedId, setSelectedId] = useState(null);
+      const [selectedCategory, setSelectedCategory] = useState('ALL');
+
+      const currentProject = PROJECTS.find((p) => p.id === selectedId);
+
+      const filteredProjects = PROJECTS.filter((project) => {
+        if (selectedCategory === 'ALL') return true;
+
+        if (selectedCategory === 'WEB & UI/UX Design' || selectedCategory === 'UI/UX') {
+          return project.category === 'UI/UX' || [1, 2, 3, 4, 5].includes(project.id);
+        }
+
+        if (selectedCategory === 'SNS Content') {
+          return project.category === 'SNS Content';
+        }
+
+        if (selectedCategory === 'AI Image') {
+          return project.category === 'AI Image';
+        }
+
+        return project.category === selectedCategory;
+      });
+
+      const handleCardClick = (id) => {
+        setSelectedId(id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      const handleBackToList = () => {
+        setSelectedId(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      const handleShowAll = () => {
+        setSelectedCategory('ALL');
+        setSelectedId(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      const handleCategoryClick = (categoryName) => {
+        setSelectedCategory(categoryName);
+        setSelectedId(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      return (
+        <div className="portfolio-container">
+          <aside className="sidebar">
+            <div className="profile-avatar-wrap">
+              <img
+                src={PROFILE.avatar}
+                alt="프로필 이미지"
+                className="profile-avatar"
+              />
+            </div>
+
+            <div className="sidebar-section">
+              <h2
+                className="sidebar-title"
+                style={{ cursor: 'pointer' }}
+                onClick={handleShowAll}
+                title="전체 포트폴리오 보기"
+              >
+                Portfolio
+              </h2>
+              <ul className="sidebar-list">
+                {MENU.portfolio.map((item, index) => {
+                  const isActive = selectedCategory === item;
+                  return (
+                    <li
+                      key={index}
+                      className={`sidebar-item ${isActive ? 'active' : ''}`}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => handleCategoryClick(item)}
+                      >
+                        {item}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="sidebar-section">
+              <h2 className="sidebar-title">Amusement</h2>
+            </div>
+
+            <div className="sidebar-section">
+              <h2 className="sidebar-title">About Me</h2>
+              <ul className="sidebar-list">
+                <li className="sidebar-item">{PROFILE.name}</li>
+                <li className="sidebar-item">{PROFILE.birth}</li>
+                <li className="sidebar-item">{PROFILE.address}</li>
+                <li className="sidebar-item">
+                  <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+                </li>
+                <li className="sidebar-item">{PROFILE.phone}</li>
+              </ul>
+            </div>
+          </aside>
+
+          <main className="content-area">
+            {currentProject ? (
+              <article className="detail-view">
+                <div className="detail-top-nav">
+                  <div className="detail-nav-left">
+                    <span className="detail-nav-category">{currentProject.category}</span>
+                    <span className="detail-nav-title">{currentProject.title}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="detail-back-btn"
+                    onClick={handleBackToList}
+                  >
+                    ✕ 목록으로
+                  </button>
+                </div>
+
+                <div className="detail-content">
+                  {currentProject.demoUrl && currentProject.demoUrl.trim() !== '' && (
+                    <div className="detail-demo-wrap">
+                      <a
+                        href={currentProject.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="live-demo-btn"
+                      >
+                        Live Demo 바로가기 ↗
+                      </a>
+                    </div>
+                  )}
+
+                  {currentProject.description && (
+                    <div className="detail-description">
+                      {currentProject.description}
+                    </div>
+                  )}
+
+                  <div
+                    className={`detail-images-list ${
+                      ['SNS Content', 'AI Image', 'Amusement'].includes(currentProject.category)
+                        ? 'compact'
+                        : ''
+                    }`}
+                  >
+                    {currentProject.detailImages &&
+                      currentProject.detailImages.map((imgSrc, index) => (
+                        <div key={index} className="detail-image-item">
+                          <img
+                            src={imgSrc}
+                            alt={`${currentProject.title} - ${index + 1}`}
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </article>
+            ) : (
+              filteredProjects.length > 0 ? (
+                <div className="project-grid">
+                  {filteredProjects.map((project) => (
+                    <div
+                      key={project.id}
+                      className="project-card"
+                      onClick={() => handleCardClick(project.id)}
+                    >
+                      <div className="thumbnail-wrap">
+                        <img
+                          src={project.thumbnail}
+                          alt={project.title}
+                          className="thumbnail-img"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="project-info">
+                        <span className="project-category">{project.category}</span>
+                        <span className="project-title">{project.title}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="empty-category-msg">
+                  <p>해당 카테고리에 등록된 프로젝트가 없습니다.</p>
+                  <button
+                    type="button"
+                    className="detail-back-btn"
+                    style={{ marginTop: '16px' }}
+                    onClick={handleShowAll}
+                  >
+                    전체 포트폴리오 보기
+                  </button>
+                </div>
+              )
+            )}
+          </main>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
