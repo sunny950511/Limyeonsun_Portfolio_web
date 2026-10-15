@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limyeonsun Portfolio</title>
+  <link rel="stylesheet" href="src/index.css">
+  <link rel="stylesheet" href="src/App.css">
+  <!-- React 및 Babel Standalone CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    // ==========================================
+    // 1. 프로필 & 인적사항 데이터
+    // ==========================================
+    const PROFILE = {
+      avatar: 'src/assets/yeonsun.png',
+      name: '임연선',
+      birth: '1995.05.11',
+      address: '경기도 수원시 장안구 송죽동',
+      email: 'sunny950511@gmail.com',
+      phone: '010-8497-4204',
+    };
+
+    const MENU = {
+      portfolio: ['SNS Content', 'WEB & UI/UX Design', 'AI Image'],
+    };
+
+    // ==========================================
+    // 2. 프로젝트 리스트 데이터
+    // ==========================================
+    const PROJECTS = [
+      {
+        id: 1,
+        category: 'UI/UX',
+        title: '국립중앙박물관 리디자인 프로젝트',
+        thumbnail: 'public/images/museum/museum_hero_mockup.png',
+        description: '',
+        detailImages: [
+          'public/images/museum/section01_bg.png',
+          'public/images/museum/section02_persona.png',
+          'public/images/museum/section03_ASIS_TOBE_01.png',
+          'public/images/museum/section05_variables.png',
+          'public/images/museum/section06_device_mockup.png',
+        ],
+      },
+      {
+        id: 2,
+        category: 'UI/UX',
+        title: '가상 브랜드 Mellobe 랜딩 페이지',
+        thumbnail: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80',
+        description: '가상 브랜드 Mellobe 랜딩 페이지 디자인 프로젝트입니다.',
+        detailImages: [
+          'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 3,
+        category: 'UI/UX',
+        title: '사람인 홈페이지 리디자인 프로젝트',
+        thumbnail: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 4,
+        category: 'UI/UX',
+        title: 'AI 대시보드',
+        thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 5,
+        category: 'UI/UX',
+        title: '가상 브랜드 프로모션',
+        thumbnail: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 6,
+        category: 'SNS Content',
+        title: '책 추천 / 인스타그램 세로형',
+        thumbnail: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 7,
+        category: 'SNS Content',
+        title: '식단 간식 추천 / 인스타그램 세로형',
+        thumbnail: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 8,
+        category: 'SNS Content',
+        title: '여행지 추천 / 인스타그램 세로형',
+        thumbnail: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 9,
+        category: 'SNS Content',
+        title: '맛집 추천 / 인스타그램 세로형',
+        thumbnail: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 10,
+        category: 'SNS Content',
+        title: '취미 추천 / 인스타그램 세로형',
+        thumbnail: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 11,
+        category: 'SNS Content',
+        title: '카페 광고 / 인스타그램 세로형',
+        thumbnail: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 12,
+        category: 'SNS Content',
+        title: '템플릿 / 인스타그램 카드뉴스',
+        thumbnail: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 13,
+        category: 'Promotional',
+        title: '카페 포스터',
+        thumbnail: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 14,
+        category: 'Promotional',
+        title: '공방 포스터',
+        thumbnail: 'https://images.unsplash.com/photo-1457449940276-e8deed18bfff?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1457449940276-e8deed18bfff?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 15,
+        category: 'Promotional',
+        title: '전시회 포스터',
+        thumbnail: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+      {
+        id: 16,
+        category: 'Promotional',
+        title: '전시회 포스터',
+        thumbnail: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&auto=format&fit=crop&q=80',
+        description: '',
+        detailImages: [
+          'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=1200&auto=format&fit=crop&q=80',
+        ],
+      },
+    ];
+
+    function App() {
+      const [selectedId, setSelectedId] = useState(null);
+      const currentProject = PROJECTS.find((p) => p.id === selectedId);
+
+      const handleCardClick = (id) => {
+        setSelectedId(id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      const handleBackToList = () => {
+        setSelectedId(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      return (
+        <div className="portfolio-container">
+          <aside className="sidebar">
+            <div className="profile-avatar-wrap">
+              <img
+                src={PROFILE.avatar}
+                alt="프로필 이미지"
+                className="profile-avatar"
+                onError={(e) => {
+                  console.warn('이미지 로드 실패:', e.target.src);
+                }}
+              />
+            </div>
+
+            <div className="sidebar-section">
+              <h2
+                className="sidebar-title"
+                style={{ cursor: 'pointer' }}
+                onClick={handleBackToList}
+              >
+                Portfolio
+              </h2>
+              <ul className="sidebar-list">
+                {MENU.portfolio.map((item, index) => (
+                  <li key={index} className="sidebar-item">
+                    <button type="button" onClick={handleBackToList}>
+                      {item}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="sidebar-section">
+              <h2 className="sidebar-title">Amusement</h2>
+            </div>
+
+            <div className="sidebar-section">
+              <h2 className="sidebar-title">About Me</h2>
+              <ul className="sidebar-list">
+                <li className="sidebar-item">{PROFILE.name}</li>
+                <li className="sidebar-item">{PROFILE.birth}</li>
+                <li className="sidebar-item">{PROFILE.address}</li>
+                <li className="sidebar-item">
+                  <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+                </li>
+                <li className="sidebar-item">{PROFILE.phone}</li>
+              </ul>
+            </div>
+          </aside>
+
+          <main className="content-area">
+            {currentProject ? (
+              <article className="detail-view">
+                <div className="detail-top-nav">
+                  <div className="detail-nav-left">
+                    <span className="detail-nav-category">{currentProject.category}</span>
+                    <span className="detail-nav-title">{currentProject.title}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="detail-back-btn"
+                    onClick={handleBackToList}
+                  >
+                    ✕ 목록으로
+                  </button>
+                </div>
+
+                <div className="detail-content">
+                  {currentProject.description && (
+                    <div className="detail-description">
+                      {currentProject.description}
+                    </div>
+                  )}
+
+                  <div className="detail-images-list">
+                    {currentProject.detailImages &&
+                      currentProject.detailImages.map((imgSrc, index) => (
+                        <div key={index} className="detail-image-item">
+                          <img
+                            src={imgSrc}
+                            alt={`${currentProject.title} - ${index + 1}`}
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </article>
+            ) : (
+              <div className="project-grid">
+                {PROJECTS.map((project) => (
+                  <div
+                    key={project.id}
+                    className="project-card"
+                    onClick={() => handleCardClick(project.id)}
+                  >
+                    <div className="thumbnail-wrap">
+                      <img
+                        src={project.thumbnail}
+                        alt={project.title}
+                        className="thumbnail-img"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="project-info">
+                      <span className="project-category">{project.category}</span>
+                      <span className="project-title">{project.title}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </main>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
