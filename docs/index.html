@@ -343,6 +343,7 @@
       address: '경기도 수원시 장안구 송죽동',
       email: 'sunny950511@gmail.com',
       phone: '010-8497-4204',
+      blog: 'https://blog.naver.com/sunnny_52',
     };
 
     const MENU = {
@@ -647,6 +648,17 @@
                   <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
                 </li>
                 <li className="sidebar-item">{PROFILE.phone}</li>
+                {PROFILE.blog && (
+                  <li className="sidebar-item">
+                    <a
+                      href={PROFILE.blog}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Blog
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </aside>

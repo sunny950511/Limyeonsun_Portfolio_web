@@ -360,6 +360,17 @@ function App() {
               <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
             </li>
             <li className="sidebar-item">{PROFILE.phone}</li>
+            {PROFILE.blog && (
+              <li className="sidebar-item">
+                <a
+                  href={PROFILE.blog}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Blog
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </aside>
