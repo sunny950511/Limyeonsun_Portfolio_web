@@ -98,7 +98,7 @@ const PROJECTS = [
     category: 'SNS Content',
     title: '책 추천 / 인스타그램 세로형',
     thumbnail: '/images/SNS/sns_book.png',
-    description: '',
+    description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
     detailImages: [
       '/images/SNS/sns_book.png'
     ],
@@ -108,7 +108,7 @@ const PROJECTS = [
     category: 'SNS Content',
     title: '식단 간식 추천 / 인스타그램 세로형',
     thumbnail: '/images/SNS/sns_snack.png',
-    description: '',
+    description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
     detailImages: [
       '/images/SNS/sns_snack.png'
     ],
@@ -118,7 +118,7 @@ const PROJECTS = [
     category: 'SNS Content',
     title: '여행지 추천 / 인스타그램 세로형',
     thumbnail: '/images/SNS/sns_travel.png',
-    description: '',
+    description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
     detailImages: [
       '/images/SNS/sns_travel.png',
     ],
@@ -128,7 +128,7 @@ const PROJECTS = [
     category: 'SNS Content',
     title: '맛집 추천 / 인스타그램 세로형',
     thumbnail: '/images/SNS/sns_food.png',
-    description: '',
+    description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
     detailImages: [
       '/images/SNS/sns_food.png',
     ],
@@ -138,7 +138,7 @@ const PROJECTS = [
     category: 'SNS Content',
     title: '취미 추천 / 인스타그램 세로형',
     thumbnail: '/images/SNS/sns_hobby.png',
-    description: '',
+    description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
     detailImages: [
       '/images/SNS/sns_hobby.png',
     ],
@@ -160,7 +160,7 @@ const PROJECTS = [
     category: 'SNS Content',
     title: '템플릿 / 인스타그램 카드뉴스',
     thumbnail: '/images/SNS/카드뉴스1/01.png',
-    description: '',
+    description: '피그마 템플릿을 활용한 인스타그램 카드뉴스 콘텐츠입니다.',
     detailImages: [
       '/images/SNS/카드뉴스1/01.png',
       '/images/SNS/카드뉴스1/02.png',
@@ -205,7 +205,7 @@ const PROJECTS = [
     category: 'SNS Content',
     title: '디저트 홍보 카드뉴스',
     thumbnail: '/images/SNS/디저트1/01.png',
-    description: '',
+    description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
     detailImages: [
       '/images/SNS/디저트1/01.png',
       '/images/SNS/디저트1/02.png',
@@ -422,8 +422,8 @@ function App() {
               {/* 카테고리가 SNS Content, AI Image, Amusement인 경우 썸네일 크기로 축소 */}
               <div
                 className={`detail-images-list ${['SNS Content', 'AI Image', 'Amusement'].includes(currentProject.category)
-                    ? 'compact'
-                    : ''
+                  ? 'compact'
+                  : ''
                   }`}
               >
                 {currentProject.detailImages &&
