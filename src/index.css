@@ -388,4 +388,57 @@ ul {
   height: auto;
   display: block;
 }
+
+/* ====================================================
+   4. Amusement 갤러리 (사진이 너무 크지 않은 감성 그리드)
+   ==================================================== */
+.sidebar-title.clickable {
+  transition: color 0.2s ease;
+}
+
+.sidebar-title.clickable:hover {
+  color: #000000;
+}
+
+.sidebar-title.clickable.active {
+  color: #111111;
+  font-weight: 700;
+}
+
+.amuse-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 1050px;
+}
+
+@media (max-width: 576px) {
+  .amuse-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+  }
+}
+
+.amuse-gallery-item {
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #f7f7f8;
+  border: 1px solid #eeeeee;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.amuse-gallery-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.amuse-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 

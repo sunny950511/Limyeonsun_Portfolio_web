@@ -328,6 +328,49 @@
       height: auto;
       display: block;
     }
+
+    /* Amusement 갤러리 (사진이 너무 크지 않은 감성 그리드) */
+    .sidebar-title.clickable {
+      transition: color 0.2s ease;
+    }
+    .sidebar-title.clickable:hover {
+      color: #000000;
+    }
+    .sidebar-title.clickable.active {
+      color: #111111;
+      font-weight: 700;
+    }
+    .amuse-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 1050px;
+    }
+    @media (max-width: 576px) {
+      .amuse-gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
+      }
+    }
+    .amuse-gallery-item {
+      aspect-ratio: 1 / 1;
+      border-radius: 6px;
+      overflow: hidden;
+      background-color: #f7f7f8;
+      border: 1px solid #eeeeee;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .amuse-gallery-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    }
+    .amuse-gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -409,7 +452,7 @@
         category: 'SNS Content',
         title: '책 추천 / 인스타그램 세로형',
         thumbnail: './images/SNS/sns_book.png',
-        description: '',
+        description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
         detailImages: [
           './images/SNS/sns_book.png'
         ],
@@ -419,7 +462,7 @@
         category: 'SNS Content',
         title: '식단 간식 추천 / 인스타그램 세로형',
         thumbnail: './images/SNS/sns_snack.png',
-        description: '',
+        description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
         detailImages: [
           './images/SNS/sns_snack.png'
         ],
@@ -429,7 +472,7 @@
         category: 'SNS Content',
         title: '여행지 추천 / 인스타그램 세로형',
         thumbnail: './images/SNS/sns_travel.png',
-        description: '',
+        description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
         detailImages: [
           './images/SNS/sns_travel.png',
         ],
@@ -439,7 +482,7 @@
         category: 'SNS Content',
         title: '맛집 추천 / 인스타그램 세로형',
         thumbnail: './images/SNS/sns_food.png',
-        description: '',
+        description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
         detailImages: [
           './images/SNS/sns_food.png',
         ],
@@ -449,7 +492,7 @@
         category: 'SNS Content',
         title: '취미 추천 / 인스타그램 세로형',
         thumbnail: './images/SNS/sns_hobby.png',
-        description: '',
+        description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
         detailImages: [
           './images/SNS/sns_hobby.png',
         ],
@@ -469,7 +512,7 @@
         category: 'SNS Content',
         title: '템플릿 / 인스타그램 카드뉴스',
         thumbnail: './images/SNS/카드뉴스1/01.png',
-        description: '',
+        description: '피그마 템플릿을 활용한 인스타그램 카드뉴스 콘텐츠입니다.',
         detailImages: [
           './images/SNS/카드뉴스1/01.png',
           './images/SNS/카드뉴스1/02.png',
@@ -512,7 +555,7 @@
         category: 'SNS Content',
         title: '디저트 홍보 카드뉴스',
         thumbnail: './images/SNS/디저트1/01.png',
-        description: '',
+        description: '피그마 템플릿을 활용한 인스타그램 세로형 콘텐츠입니다.',
         detailImages: [
           './images/SNS/디저트1/01.png',
           './images/SNS/디저트1/02.png',
@@ -546,6 +589,31 @@
       './images/ai_img/home04 1.png',
       './images/ai_img/home05 1.png',
       './images/ai_img/home06 1.png',
+    ];
+
+    const AMUSE_IMAGES = [
+      './images/amuse/KakaoTalk_20261005_171120301.jpg',
+      './images/amuse/KakaoTalk_20261006_132843260_10.jpg',
+      './images/amuse/KakaoTalk_20261008_120459917_02.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_02.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_07.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_10.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_12.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_13.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_14.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_15.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_16.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_17.jpg',
+      './images/amuse/KakaoTalk_20261008_155637119_20.jpg',
+      './images/amuse/KakaoTalk_20261008_173927372.jpg',
+      './images/amuse/KakaoTalk_20261008_173927372_01.jpg',
+      './images/amuse/KakaoTalk_20261008_173927372_14.jpg',
+      './images/amuse/KakaoTalk_20261008_173927372_15.jpg',
+      './images/amuse/KakaoTalk_20261008_173927372_16.jpg',
+      './images/amuse/KakaoTalk_20261008_173927372_18.jpg',
+      './images/amuse/KakaoTalk_20261008_173927372_26.jpg',
+      './images/amuse/KakaoTalk_20261010_213909619_03.jpg',
+      './images/amuse/KakaoTalk_20261015_160817328.jpg',
     ];
 
     function App() {
@@ -635,7 +703,14 @@
             </div>
 
             <div className="sidebar-section">
-              <h2 className="sidebar-title">Amusement</h2>
+              <h2
+                className={`sidebar-title clickable ${selectedCategory === 'Amusement' ? 'active' : ''}`}
+                style={{ cursor: 'pointer' }}
+                onClick={() => handleCategoryClick('Amusement')}
+                title="Amusement 갤러리 보기"
+              >
+                Amusement
+              </h2>
             </div>
 
             <div className="sidebar-section">
@@ -728,6 +803,19 @@
                       src={imgSrc}
                       alt={`AI Image ${index + 1}`}
                       className="ai-gallery-img"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : selectedCategory === 'Amusement' ? (
+              <div className="amuse-gallery-grid">
+                {AMUSE_IMAGES.map((imgSrc, index) => (
+                  <div key={index} className="amuse-gallery-item">
+                    <img
+                      src={imgSrc}
+                      alt={`Amusement ${index + 1}`}
+                      className="amuse-gallery-img"
                       loading="lazy"
                     />
                   </div>

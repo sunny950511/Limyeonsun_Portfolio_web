@@ -244,6 +244,33 @@ const AI_IMAGES = [
   '/images/ai_img/home06 1.png',
 ];
 
+// ==========================================
+// 4. Amusement 갤러리 이미지 목록
+// ==========================================
+const AMUSE_IMAGES = [
+  '/images/amuse/KakaoTalk_20261005_171120301.jpg',
+  '/images/amuse/KakaoTalk_20261006_132843260_10.jpg',
+  '/images/amuse/KakaoTalk_20261008_120459917_02.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_02.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_07.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_10.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_12.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_13.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_14.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_15.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_16.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_17.jpg',
+  '/images/amuse/KakaoTalk_20261008_155637119_20.jpg',
+  '/images/amuse/KakaoTalk_20261008_173927372.jpg',
+  '/images/amuse/KakaoTalk_20261008_173927372_01.jpg',
+  '/images/amuse/KakaoTalk_20261008_173927372_14.jpg',
+  '/images/amuse/KakaoTalk_20261008_173927372_15.jpg',
+  '/images/amuse/KakaoTalk_20261008_173927372_16.jpg',
+  '/images/amuse/KakaoTalk_20261008_173927372_18.jpg',
+  '/images/amuse/KakaoTalk_20261008_173927372_26.jpg',
+  '/images/amuse/KakaoTalk_20261010_213909619_03.jpg',
+  '/images/amuse/KakaoTalk_20261015_160817328.jpg',
+];
 
 function App() {
   // 현재 선택된 프로젝트 ID (null이면 전체 목록 뷰, id가 있으면 해당 상세 뷰)
@@ -346,7 +373,14 @@ function App() {
 
         {/* Amusement 메뉴 */}
         <div className="sidebar-section">
-          <h2 className="sidebar-title">Amusement</h2>
+          <h2
+            className={`sidebar-title clickable ${selectedCategory === 'Amusement' ? 'active' : ''}`}
+            style={{ cursor: 'pointer' }}
+            onClick={() => handleCategoryClick('Amusement')}
+            title="Amusement 갤러리 보기"
+          >
+            Amusement
+          </h2>
         </div>
 
         {/* About Me 정보 */}
@@ -450,6 +484,22 @@ function App() {
                   src={getAssetUrl(imgSrc)}
                   alt={`AI Image ${index + 1}`}
                   className="ai-gallery-img"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        ) : selectedCategory === 'Amusement' ? (
+          /* ====================================================
+             Amusement 전용 감성 갤러리 (적당한 크기의 스냅샷 그리드)
+             ==================================================== */
+          <div className="amuse-gallery-grid">
+            {AMUSE_IMAGES.map((imgSrc, index) => (
+              <div key={index} className="amuse-gallery-item">
+                <img
+                  src={getAssetUrl(imgSrc)}
+                  alt={`Amusement ${index + 1}`}
+                  className="amuse-gallery-img"
                   loading="lazy"
                 />
               </div>
